@@ -2,7 +2,7 @@
 const Alexa = require('alexa-sdk');
 const request = require('request');
 
-const APP_ID = 'amzn1.ask.skill.376e7812-b9fa-40db-90ac-e7610cfb93be';
+const APP_ID = 'ID';
 
 const SKILL_NAME = 'Test Skill';
 const GET_FACT_MESSAGE = "Josue ";
