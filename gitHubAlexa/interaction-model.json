@@ -1,0 +1,77 @@
+{
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "SearchGitHub",
+          "samples": [
+            "Get me a GitHub User",
+            "Look for a User",
+            "Look for {User} ",
+            "Search for {User}",
+            "Search for a GitHub User",
+            "Search for a {User}"
+          ],
+          "slots": [
+            {
+              "name": "User",
+              "type": "AMAZON.GB_FIRST_NAME",
+              "samples": [
+                "Look for {User} ",
+                "{User} ",
+                "Search for {User} ",
+                "Give me information on {User} ",
+                "Get me {User} "
+              ]
+            }
+          ]
+        }
+      ],
+      "invocationName": "test skill"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Intent-SearchGitHub.IntentSlot-User",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Who should I look for?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Can you give me a User name?"
+          }
+        ]
+      }
+    ],
+    "dialog": {
+      "intents": [
+        {
+          "name": "SearchGitHub",
+          "confirmationRequired": false,
+          "slots": [
+            {
+              "name": "User",
+              "type": "AMAZON.GB_FIRST_NAME",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Intent-SearchGitHub.IntentSlot-User"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
