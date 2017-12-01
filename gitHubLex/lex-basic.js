@@ -3,7 +3,7 @@ const request = require('request');
 
 exports.handler = (event, context, callback) => {
     var user = event.currentIntent.slots.user;
-    callback(null, getUser(User));
+    callback(null, getUser(user));
 };
 
 function getUser(user) {
