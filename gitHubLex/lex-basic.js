@@ -2,7 +2,7 @@
 const request = require('request');
 
 exports.handler = (event, context, callback) => {
-    var user = event.currentIntent.AMAZON.Person;
+    var user = event.currentIntent.slots.user;
     callback(null, getUser(User));
 };
 
