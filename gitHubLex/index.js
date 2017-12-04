@@ -19,7 +19,7 @@ function getUser(user) {
         let result = JSON.parse(body);
         return {
             dialogAction: {
-                type: 'Close',
+                type: 'ConfirmIntent',
                 fulfillmentState: "Fulfilled",
                 message: {
                     contentType: "PlainText",
