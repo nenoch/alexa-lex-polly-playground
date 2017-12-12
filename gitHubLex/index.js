@@ -1,12 +1,8 @@
 'use strict';
-const request = require('request');
+const request = require('request-promise');
 
 exports.handler = (event, context, callback) => {
-    var user = event.currentIntent.slots.user;
-    callback(null, getUser(user));
-};
-
-function getUser(user) {
+    let user = event.currentIntent.slots.user;
     const baseUrl = `https://api.github.com/users/${user}`;
     const headers = {
         'User-Agent': 'something'
@@ -14,18 +10,38 @@ function getUser(user) {
     const options = {
         headers: headers
     };
-    
-    request.get(baseUrl, options, (err, res, body) => {
-        let result = JSON.parse(body);
-        return {
-            dialogAction: {
-                type: 'ConfirmIntent',
-                fulfillmentState: "Fulfilled",
-                message: {
-                    contentType: "PlainText",
-                    content: `I found ${result.login}, ${result.bio}`
+
+    request(baseUrl, options)
+        .then(res => {
+            // let result = JSON.parse(res);
+            // let name = result.login;
+            // let bio = result.bio;
+            const response = {
+                sessionAttributes: event.sessionAttributes,
+                dialogAction: {
+                    type: "Close",
+                    fulfillmentState: "Fulfilled",
+                    message: {
+                        contentType: "PlainText",
+                        content: `Thanks ${res}`
+                    }
                 }
             }
-        }           
-    });
-}
+            callback(null, response);
+        }).catch(err => {
+            console.log(err);
+            const response = {
+                sessionAttributes: event.sessionAttributes,
+                dialogAction: {
+                    type: "Close",
+                    fulfillmentState: "Fulfilled",
+                    message: {
+                        contentType: "PlainText",
+                        content: `An error occurred.`
+                    }
+                }
+            }
+            callback(null, response);
+        });
+
+};
