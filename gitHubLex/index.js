@@ -13,8 +13,8 @@ exports.handler = (event, context, callback) => {
 
     request(baseUrl, options)
         .then(res => {
-            let name = result.login;
-            let bio = result.bio;
+            let name = res.login;
+            let bio = res.bio;
             const response = {
                 sessionAttributes: event.sessionAttributes,
                 dialogAction: {
