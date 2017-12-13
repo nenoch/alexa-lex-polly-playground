@@ -13,8 +13,7 @@ exports.handler = (event, context, callback) => {
 
     request(baseUrl, options)
         .then(res => {
-            let name = res.login;
-            let bio = res.bio;
+            const resParsed = JSON.parse(res);
             const response = {
                 sessionAttributes: event.sessionAttributes,
                 dialogAction: {
@@ -22,7 +21,7 @@ exports.handler = (event, context, callback) => {
                     fulfillmentState: "Fulfilled",
                     message: {
                         contentType: "PlainText",
-                        content: `This is ${name}'s description on github: ${bio}`
+                        content: `This is ${resParsed.login}'s description on github: ${resParsed.bio}`
                     }
                 }
             }
